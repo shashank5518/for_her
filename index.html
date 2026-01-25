@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You 💜</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Floating lanterns (decorative) -->
+  <div class="lanterns" aria-hidden="true">
+    <div class="lantern lantern-1"></div>
+    <div class="lantern lantern-2"></div>
+    <div class="lantern lantern-3"></div>
+    <div class="lantern lantern-4"></div>
+    <div class="lantern lantern-5"></div>
+    <div class="lantern lantern-6"></div>
+  </div>
+
+  <!-- Background music - replace "your-song.mp3" with your audio file path -->
+  <audio id="bgMusic" loop>
+    <source src="./grentperez - Clementine (Official Lyric Video).mp3" type="audio/mpeg">
+    <source src="your-song.ogg" type="audio/ogg">
+  </audio>
+
+  <!-- Music toggle (cute floating button) -->
+  <button class="music-toggle" id="musicToggle" aria-label="Toggle music">
+    <span class="music-icon">🎵</span>
+    <span class="music-icon playing">✨</span>
+  </button>
+
+  <!-- Main navigation pills -->
+  <nav class="main-nav">
+    <button class="nav-pill active" data-section="landing">Home</button>
+    <button class="nav-pill" data-section="letter">Letter</button>
+    <button class="nav-pill" data-section="gallery">Gallery</button>
+  </nav>
+
+  <!-- ========== LANDING SECTION ========== -->
+  <section id="landing" class="section active">
+    <div class="landing-content">
+      <div class="stars" aria-hidden="true"></div>
+      <h1 class="landing-title">This is for you!</h1>
+      <p class="landing-subtitle">from someone who misses you every day (the dumba from far far away)</p>
+      <button class="cta-button" id="openLetter">
+        <span class="cta-text">Open your letter 💌</span>
+        <span class="cta-glow"></span>
+      </button>
+      <p class="landing-hint">(yes there's a letter inside...)</p>
+    </div>
+  </section>
+
+  <!-- ========== LETTER SECTION ========== -->
+  <section id="letter" class="section">
+    <div class="letter-container">
+      <button class="close-letter" id="closeLetter" aria-label="Close letter">×</button>
+      <div class="letter-paper">
+        <div class="letter-content handwritten">
+          <p>Hieeee Cutie! Sprinkles! Cupcake!</p>
+          <p>I know we're miles apart right now and sometimes that really sucks. But every time we talk, it feels like you're right here — and I wouldn't trade our texts, reel spams, vlogues, calls or our dumb inside jokes for anything else in this world.</p>
+          <p>This is just a little something to remind you that you're on my mind... like, all the time (yes me obsessed with you). You make the distance feel a little less impossible. 💜</p>
+          <p>I am really proud to say that i found a great fren and the love of my life on the INTERNET! 😭</p>
+          <p>Can't wait for the day we finally get to close it. Until then, I'm sending you all the virtual hugs and this whole website filled with you.</p>
+          <p>Love you, you dumba!. ✨</p>
+          <p class="letter-signature">— forever yours (don't forget u goldfish!)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GALLERY SECTION ========== -->
+  <section id="gallery" class="section">
+    <div class="gallery-wrapper">
+      <h2 class="gallery-title">You, through my eyes ✨</h2>
+      <p class="gallery-subtitle">My favorite views!! (couldn't upload all of them)
+      </p>
+      <p>A collection of you being a chaotique and an iconique diva💅✨</p>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+  </section>
+
+  <!-- Lightbox: tap/click photo or video to view full-size or play -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="" alt="View">
+      <video id="lightboxVideo" controls playsinline></video>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("media.json")
+    .then(res => res.json())
+    .then(files => {
+      const grid = document.getElementById("galleryGrid");
+      if (!grid) return console.error("galleryGrid not found");
+
+      files.forEach(file => {
+        const ext = file.split(".").pop().toLowerCase();
+        const div = document.createElement("div");
+
+        if (["jpg","jpeg","png","gif","webp"].includes(ext)) {
+          div.className = "gallery-item";
+          div.innerHTML = `<img src="photos/${file}" alt="A memory">`;
+        }
+
+        if (["mp4","webm","mov"].includes(ext)) {
+          div.className = "gallery-item video-item";
+          div.innerHTML = `<video src="photos/${file}" muted loop playsinline></video>`;
+        }
+
+        grid.appendChild(div);
+      });
+    })
+    .catch(err => console.error("Gallery load failed:", err));
+});
+</script>
+</body>
+</html>
