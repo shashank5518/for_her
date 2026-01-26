@@ -288,10 +288,10 @@ if (songBtn && ourSong && songBubble) {
     if (!bgMusic.paused) bgMusic.pause();
 
     const jokes = [
-      "Our song 😭💛",
-      "You know this one 😉",
-      "This is OUR vibe 🎧",
-      "Every time I hear this… I think of you."
+      "This was so funny!!😭😭",
+      "You know this one 🤣",
+      "Should've given me a heads up 😭🤚",
+      "This makes me laugh so hard!"
     ];
 
     const note = jokes[Math.floor(Math.random() * jokes.length)];
