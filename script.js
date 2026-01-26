@@ -166,4 +166,35 @@
       openLightbox(src, false);
     }
   });
+  
+// ----- Valentine Secret Button -----
+document.addEventListener("DOMContentLoaded", function () {
+  const valentineBtn = document.getElementById("valentineBtn");
+  if (!valentineBtn) return;
+
+  const today = new Date();
+  const valentines = new Date(today.getFullYear(), 1, 14);
+
+  if (today < valentines) {
+    valentineBtn.classList.add("locked");
+    valentineBtn.textContent = "🔒 Secret blooms on Feb 14 🌻";
+  } else {
+    valentineBtn.classList.remove("locked");
+    valentineBtn.classList.add("unlocked");
+    valentineBtn.textContent = "🌻 Open Your Valentine Surprise";
+  }
+
+  valentineBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    playClickSound();
+
+    if (today < valentines) {
+      alert("Not yet 💛 Come back on Valentine’s Day 🌻");
+    } else {
+      goToSection("valentine");
+    }
+  });
+});
+
 })();
+
