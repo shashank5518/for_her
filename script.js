@@ -1,5 +1,7 @@
 (function () {
   'use strict';
+  let allowAutoMusic = true;
+
 
   // ----- Audio: click sound (generated, no file needed) -----
   let audioCtx = null;
@@ -25,6 +27,26 @@
       osc.stop(ctx.currentTime + 0.1);
     } catch (_) {}
   }
+  function playLanternChime() {
+  try {
+    const ctx = getAudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(900, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.15);
+
+    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+
+    osc.start();
+    osc.stop(ctx.currentTime + 0.3);
+  } catch (e) {}
+}
+
 
   // ----- Background music -----
   const bgMusic = document.getElementById('bgMusic');
@@ -36,6 +58,9 @@
 
   musicToggle.addEventListener('click', function () {
     playClickSound();
+    if (typeof ourSong !== "undefined" && !ourSong.paused) {
+    ourSong.pause();
+  }
     if (bgMusic.paused) {
       bgMusic.play().catch(function () {});
       musicToggle.classList.add('playing');
@@ -53,15 +78,19 @@
     }
   }
 
-  document.addEventListener('click', function once() {
-    tryStartMusic();
-    document.removeEventListener('click', once);
-  }, { once: true });
+  document.addEventListener('click', function once(e) {
+  if (!allowAutoMusic) return;
+  tryStartMusic();
+  document.removeEventListener('click', once);
+}, { once: true });
 
-  document.addEventListener('keydown', function once() {
-    tryStartMusic();
-    document.removeEventListener('keydown', once);
-  }, { once: true });
+
+  document.addEventListener('keydown', function once(e) {
+  if (!allowAutoMusic) return;
+  tryStartMusic();
+  document.removeEventListener('keydown', once);
+}, { once: true });
+
 
   initMusic();
 
@@ -194,7 +223,92 @@ document.addEventListener("DOMContentLoaded", function () {
       goToSection("valentine");
     }
   });
+  // ----- Valentine Countdown -----
+const countdownEl = document.getElementById("countdownTimer");
+
+function updateCountdown() {
+  if (!countdownEl) return;
+
+  const now = new Date();
+  const target = new Date(now.getFullYear(), 1, 14, 0, 0, 0);
+
+  if (now > target) {
+    countdownEl.textContent = "It’s Valentine’s Day 💛";
+    return;
+  }
+
+  const diff = target - now;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const mins = Math.floor((diff / (1000 * 60)) % 60);
+  const secs = Math.floor((diff / 1000) % 60);
+
+  countdownEl.textContent =
+    `${String(days).padStart(2,"0")}:` +
+    `${String(hours).padStart(2,"0")}:` +
+    `${String(mins).padStart(2,"0")}:` +
+    `${String(secs).padStart(2,"0")}`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
 });
+// ----- Wish Lantern -----
+const wishBtn = document.getElementById("wishBtn");
+const wishInput = document.getElementById("wishInput");
+const lanternSky = document.getElementById("lanternSky");
+
+if (wishBtn) {
+  wishBtn.addEventListener("click", () => {
+    if (!wishInput.value.trim()) return;
+
+    playLanternChime();
+
+    const lantern = document.createElement("div");
+    lantern.className = "floating-lantern";
+    lantern.style.left = Math.random() * 80 + 10 + "vw";
+
+    lanternSky.appendChild(lantern);
+
+    setTimeout(() => lantern.remove(), 7000);
+    wishInput.value = "";
+  });
+}
+// ----- Floating Song Joke + Play (with bubble) -----
+const songBtn = document.getElementById("songBtn");
+const ourSong = document.getElementById("ourSong");
+const songBubble = document.getElementById("songBubble");
+
+if (songBtn && ourSong && songBubble) {
+  songBtn.addEventListener("click", () => {
+    playClickSound();
+    allowAutoMusic = false;
+
+    if (!bgMusic.paused) bgMusic.pause();
+
+    const jokes = [
+      "Our song 😭💛",
+      "You know this one 😉",
+      "This is OUR vibe 🎧",
+      "Every time I hear this… I think of you."
+    ];
+
+    const note = jokes[Math.floor(Math.random() * jokes.length)];
+    songBubble.textContent = note;
+    songBubble.classList.add("show");
+
+    setTimeout(() => songBubble.classList.remove("show"), 2500);
+
+    if (ourSong.paused) {
+      ourSong.currentTime = 0;
+      ourSong.play().catch(()=>{});
+    } else {
+      ourSong.pause();
+    }
+  });
+}
+
 
 })();
 

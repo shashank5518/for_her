@@ -20,17 +20,21 @@
     <div class="lantern lantern-6"></div>
   </div>
 
-  <!-- Background music - replace "your-song.mp3" with your audio file path -->
+  <!-- Background music -->
   <audio id="bgMusic" loop>
     <source src="./grentperez - Clementine (Official Lyric Video).mp3" type="audio/mpeg">
-    <source src="your-song.ogg" type="audio/ogg">
   </audio>
+  <audio id="ourSong" src="./Nessa_Barrett_-_PASSENGER_PRINCESS_☆_(official_lyric_video)_128k.mp3"></audio>
+
 
   <!-- Music toggle (cute floating button) -->
   <button class="music-toggle" id="musicToggle" aria-label="Toggle music">
     <span class="music-icon">🎵</span>
     <span class="music-icon playing">✨</span>
   </button>
+  <button id="songBtn" class="song-float-btn" aria-label="Princess!!">🎧</button>
+  <div id="songBubble" class="song-bubble"></div>
+
 
   <!-- Main navigation pills -->
   <nav class="main-nav">
@@ -54,6 +58,11 @@
   🔒 Secret for Valentine’s Day
   <span class="cta-glow"></span>
   </button>
+  <div id="valentineCountdown" class="valentine-countdown">
+  <Data>Don't worry it opens in...</Data>
+  <span id="countdownTimer">00:00:00:00</span>
+</div>
+
     </div>
   </section>
 
@@ -70,8 +79,15 @@
           <p>Can't wait for the day we finally get to close it. Until then, I'm sending you all the virtual hugs and this whole website filled with you.</p>
           <p>Love you, you dumba!. ✨</p>
           <p class="letter-signature">— forever yours (don't forget u goldfish!)</p>
+          <div class="wish-box">
+    <p class="wish-title">Release a Lantern 🌙</p>
+    <input type="text" id="wishInput" placeholder="Type a little wish…" />
+    <button id="wishBtn" class="cta-button">Release</button>
+  </div>
         </div>
       </div>
+      <div class="lantern-sky" id="lanternSky"></div>
+
     </div>
   </section>
 

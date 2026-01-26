@@ -750,3 +750,140 @@ button:hover,
   position: relative;
   z-index: 5;
 }
+/* ===== VALENTINE COUNTDOWN ===== */
+.valentine-countdown {
+  margin-top: 0.4rem;
+  text-align: center;
+  font-size: clamp(0.75rem, 2.8vw, 0.95rem);
+  color: var(--lantern);
+  opacity: 0.9;
+  text-shadow: 0 0 10px rgba(245,208,120,0.7);
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+#countdownTimer {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: clamp(0.95rem, 3.5vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+@keyframes glowPulse {
+  0%,100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+/* ===== WISH LANTERN ===== */
+.wish-box {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.wish-title {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  color: var(--lantern);
+  text-shadow: 0 0 10px rgba(245,208,120,0.7);
+}
+
+#wishInput {
+  width: 80%;
+  max-width: 260px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  font-family: var(--font-ui);
+  margin-bottom: 0.5rem;
+}
+
+.lantern-sky {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 50;
+}
+
+.floating-lantern {
+  position: absolute;
+  bottom: -40px;
+  width: 22px;
+  height: 34px;
+  background: radial-gradient(circle at center,
+    var(--lantern-glow) 0%,
+    var(--lantern) 40%,
+    rgba(245,208,120,0.7) 65%,
+    transparent 80%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  box-shadow:
+    0 0 30px var(--lantern-soft),
+    0 0 60px rgba(255, 228, 150, 0.35);
+  animation: floatUp 7s ease-in forwards;
+  opacity: 0.95;
+}
+
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* ===== FLOATING SONG BUTTON ===== */
+.song-float-btn {
+  position: fixed;
+  bottom: 1rem;
+  right: 4.2rem; /* sits left of music button */
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background: rgba(10, 5, 20, 0.75);
+  backdrop-filter: blur(var(--blur-amount));
+  border: 1px solid rgba(139, 108, 184, 0.4);
+  box-shadow:
+    0 0 10px rgba(212,165,200,0.5),
+    0 0 20px rgba(212,165,200,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.song-float-btn:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 0 18px rgba(212,165,200,0.8),
+    0 0 30px rgba(212,165,200,0.5);
+}
+/* ===== FLOATING MUSIC BUTTON SPACING ===== */
+.music-toggle {
+  margin-right: 0.5rem; /* pushes 🎧 away */
+}
+
+.song-float-btn {
+  right: 5rem; /* slightly farther from music */
+}
+/* ===== SONG BUBBLE ===== */
+.song-bubble {
+  position: fixed;
+  bottom: 3.9rem;
+  right: 4.5rem;
+  background: rgba(10, 5, 20, 0.9);
+  color: var(--blush);
+  padding: 0.4rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  box-shadow: 0 0 12px rgba(212,165,200,0.5);
+  opacity: 0;
+  transform: translateY(6px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.4s ease;
+  z-index: 1000;
+}
+
+.song-bubble.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
