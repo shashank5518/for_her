@@ -252,6 +252,7 @@ body::before {
   transition: transform var(--transition-bounce), box-shadow var(--transition-smooth);
   box-shadow: 0 4px 24px rgba(107, 76, 154, 0.5);
   -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
 }
 
 .cta-button:hover {
@@ -1055,6 +1056,7 @@ button:hover,
   transform: translateY(10px);
   pointer-events: none;
   transition: all 0.4s ease;
+  text-decoration: none;
 }
 
 .replay-btn.show {
