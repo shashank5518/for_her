@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4 in a Row!</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+  <section class="section active">
+    <div class="game-wrapper">
+
+      <h1 class="game-title">4 in a Row!</h1>
+      <p class="game-sub">Winner loves you more 🫶</p>
+
+      <div class="game-actions">
+        <button id="createGame" class="cta-button">Create Game</button>
+        <button id="joinGame" class="cta-button">Join Game</button>
+        <p id="gameCode"></p>
+      </div>
+
+      <div id="connect4" class="board"></div>
+      <p id="gameStatus" class="game-status"></p>
+      <button id="playAgain" class="cta-button replay-btn">
+  Play again?
+</button>
+
+
+    </div>
+  </section>
+<!-- ===== JOIN GAME MODAL ===== -->
+<div id="joinModal" class="modal-overlay">
+  <div class="modal">
+    <h2 class="modal-title">Join the game 💛</h2>
+    <p class="modal-sub">Enter the 4-digit code</p>
+
+    <input
+      id="joinCodeInput"
+      type="text"
+      maxlength="4"
+      placeholder="1234"
+      inputmode="numeric"
+    />
+
+    <div class="modal-actions">
+      <button id="confirmJoin" class="cta-button">Join</button>
+      <button id="cancelJoin" class="modal-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+<canvas id="confettiCanvas"></canvas>
+
+<script src="game.js"></script>
+</body>
+</html>
