@@ -1065,3 +1065,164 @@ button:hover,
   transform: translateY(0);
   pointer-events: auto;
 }
+
+/* ===== LETTER BACKGROUND VIDEO ===== */
+.letter-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: blur(12px) brightness(0.65);
+  transform: scale(1.15);
+  pointer-events: none;
+  will-change: transform;
+}
+
+#letter .letter-container {
+  position: relative;
+  z-index: 2;
+  margin: auto;
+}
+
+.letter-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 5, 20, 0.55);
+  z-index: 1;
+}
+#letter {
+  position: relative;
+  overflow: hidden;
+}
+/* ===== HIDE SCROLLBAR FOR LETTER ===== */
+#letter .letter-container {
+  scrollbar-width: none; /* Firefox */
+}
+
+#letter .letter-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+#letter .letter-paper::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 208, 120, 0.4),
+    transparent,
+    rgba(245, 208, 120, 0.4)
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+/* ===== STRONG FLOATING GLOW ===== */
+#letter .letter-paper {
+  position: relative;
+  z-index: 3;
+  box-shadow:
+    0 0 25px rgba(245, 208, 120, 0.6),
+    0 0 55px rgba(245, 208, 120, 0.45),
+    0 0 90px rgba(245, 208, 120, 0.3),
+    0 20px 70px rgba(0, 0, 0, 0.55);
+  animation: glowBreath 5s ease-in-out infinite;
+}
+
+/* glowing border layer */
+#letter .letter-paper::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at center,
+    rgba(245, 208, 120, 0.45),
+    rgba(245, 208, 120, 0.15),
+    transparent 70%
+  );
+  z-index: -1;
+  filter: blur(12px);
+  animation: glowBreath 5s ease-in-out infinite;
+}
+
+@keyframes glowBreath {
+  0%, 100% {
+    box-shadow:
+      0 0 25px rgba(245, 208, 120, 0.5),
+      0 0 55px rgba(245, 208, 120, 0.4),
+      0 0 90px rgba(245, 208, 120, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(245, 208, 120, 0.8),
+      0 0 80px rgba(245, 208, 120, 0.6),
+      0 0 120px rgba(245, 208, 120, 0.45);
+  }
+}
+/* ===== SOFT FLOATING LETTER (NO HARD EDGES) ===== */
+#letter .letter-paper {
+  background: radial-gradient(
+    circle at top,
+    rgba(255, 248, 240, 0.95),
+    rgba(255, 242, 230, 0.88),
+    rgba(255, 242, 230, 0.65)
+  );
+  border: none;
+  border-radius: 28px;
+  box-shadow:
+    0 0 40px rgba(245, 208, 120, 0.6),
+    0 0 90px rgba(245, 208, 120, 0.35),
+    0 0 160px rgba(245, 208, 120, 0.2),
+    0 30px 80px rgba(0,0,0,0.5);
+  animation: glowBreath 6s ease-in-out infinite;
+}
+
+/* fade edges into background */
+#letter .letter-paper::after {
+  content: "";
+  position: absolute;
+  inset: -25px;
+  border-radius: 40px;
+  background: radial-gradient(
+    circle,
+    rgba(245, 208, 120, 0.35),
+    transparent 70%
+  );
+  filter: blur(28px);
+  z-index: -1;
+}
+/* ===== FROSTED LETTER (NO BOX EDGES) ===== */
+#letter .letter-paper {
+  background: rgba(255, 248, 240, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 22px;
+  box-shadow: none;
+}
+
+/* kill all glow & pseudo layers */
+#letter .letter-paper::before,
+#letter .letter-paper::after {
+  display: none !important;
+}
+/* ===== PURE MIST LETTER (NO GLOW, NO EDGES) ===== */
+#letter .letter-paper {
+  background: rgba(255, 248, 240, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: none;
+  border-radius: 18px;
+  box-shadow: none !important;
+}
+
+/* remove any leftover glow layers */
+#letter .letter-paper::before,
+#letter .letter-paper::after {
+  display: none !important;
+}
+
+
